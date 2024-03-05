@@ -1,47 +1,53 @@
 ﻿using NUnit.Framework;
 using UnitTestTutorial.Persistence.Validtors;
 
-namespace UnitTestTutorial.Persistence.Tests.CleanTemplate.Persistence.Tests
+namespace UnitTestTutorial.Persistence.Tests
 {
     public class EmailValidatorTests
     {
-        [Test]
+        private EmailValidator validator;
+
+        [SetUp]
+        public void Setup()
+        {
+            this.validator = new EmailValidator();
+        }
+
+        [Test, Category("Basic")]
         public void When_EmailIsNUll_Should_ReturnsFalse()
         {
             // Arrange
-            var validator = new EmailValidator();
             string email = null;
 
             // Act
-            var result = validator.IsValidEmail(email);
+            var result = this.validator.IsValidEmail(email);
 
             // Assert
             Assert.IsFalse(result);
         }
 
-        [Test]
-        public void IsValidEmail_ValidEmail_ReturnsTrue()
+        [TestCase("user@gmail.com")]
+        [TestCase("user1@gmail.com")]
+        [TestCase("user2@gmail.com")]
+        public void IsValidEmail_ValidEmail_ReturnsTrue(string email)
         {
             // Arrange
-            var validator = new EmailValidator();
-            string email = "user@gmail.com";
 
             // Act
-            var result = validator.IsValidEmail(email);
+            var result = this.validator.IsValidEmail(email);
 
             // Assert
             Assert.IsTrue(result);
         }
 
-        [Test]
+        [Test, Category("Advance")]
         public void IsValidEmail_WhiteSpaceEmail_ReturnsFalse()
         {
             // Arrange
-            var validator = new EmailValidator();
             string email = " ";
 
             // Act
-            var result = validator.IsValidEmail(email);
+            var result = this.validator.IsValidEmail(email);
 
             // Assert
             Assert.IsFalse(result);
@@ -51,14 +57,19 @@ namespace UnitTestTutorial.Persistence.Tests.CleanTemplate.Persistence.Tests
         public void IsValidEmail_EmptyEmail_ReturnsFalse()
         {
             // Arrange
-            var validator = new EmailValidator();
             string email = string.Empty;
 
             // Act
-            var result = validator.IsValidEmail(email);
+            var result = this.validator.IsValidEmail(email);
 
             // Assert
             Assert.IsFalse(result);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            // clean some resources
         }
     }
 }
