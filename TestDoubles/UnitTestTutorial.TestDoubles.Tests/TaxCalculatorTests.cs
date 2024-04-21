@@ -4,6 +4,7 @@ namespace UnitTestTutorial.TestDoubles.Tests
 {
     public class TaxCalculatorTests
     {
+        // Stub Example
         [Test]
         public void GetTotalSalaryAfterTax_ReturnsCorrectAmount_AfterTaxCalculation()
         {
